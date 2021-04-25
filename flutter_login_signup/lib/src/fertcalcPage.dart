@@ -14,6 +14,8 @@ class _FertiliserCalculatorPageState extends State<FertiliserCalculatorPage> {
 
   TextEditingController nitrofText = new TextEditingController();
 
+  String dropdownValue = 'Nitrogen'; 
+
   double area = 0.0;
 
   double nitror = 0.0;
@@ -52,10 +54,42 @@ class _FertiliserCalculatorPageState extends State<FertiliserCalculatorPage> {
                   ),
                   keyboardType: TextInputType.number,
                 ),
+                Text(
+                  '',
+                ),
+                Align(
+                 alignment: Alignment.centerLeft,
+                  child:Text(
+                  'Select the Deficient Nutrient',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                  ),
+                ),
+                
+                ),
+
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: DropdownButton<String>(
+                  value: dropdownValue,
+                  onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
+                  },
+                  items: <String>['Nitrogen', 'Phosphate', 'Potash'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+              );
+            }).toList(),
+          ),
+                ),
                 TextField(
                   controller: nitrorText,
                   decoration: InputDecoration(
-                    labelText: "Recommended Nitrogen(lbs)",
+                    labelText: "Recommended Nutrient(lbs)",
                     labelStyle: TextStyle(color: Colors.black),
                   ),
                   keyboardType: TextInputType.number,
@@ -63,7 +97,7 @@ class _FertiliserCalculatorPageState extends State<FertiliserCalculatorPage> {
                 TextField(
                   controller: nitrofText,
                   decoration: InputDecoration(
-                    labelText: "Nitrogen Content Of Fertiliser(%)",
+                    labelText: "Nutrient Content Of Fertiliser(%)",
                     labelStyle: TextStyle(color: Colors.black),
                   ),
                   keyboardType: TextInputType.number,
